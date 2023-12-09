@@ -1,16 +1,22 @@
 package com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.entities;
 
 
+import lombok.Data;
+
+import java.io.Serializable;
 import java.util.UUID;
 
-public class PaymentResponse {
+@Data
+public class PaymentResponse implements Serializable {
 
     private UUID id;
     private String pixCopiaECola;
     private Boolean isExpired;
 
-    public UUID generatePayment(){
-        return id;
+    public PaymentResponse(String pixCopiaECola, Boolean isExpired) {
+        id = UUID.randomUUID();
+        this.pixCopiaECola = pixCopiaECola;
+        this.isExpired = isExpired;
     }
 
 }
