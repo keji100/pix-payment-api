@@ -21,23 +21,26 @@ public class Aspects {
     public void beforeMethod(){
         System.out.println("[Before] Enviando para despache");
         String url = "http://localhost:8080/Dispatch";
-        restTemplate.getForObject(url, String.class);
+        String bodyParam = "";
+        restTemplate.postForObject(url, bodyParam,String.class);
     }
 
     @Around("execution(* com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.controllers.PaymentController.*(..))")
     public void aroundMethod(ProceedingJoinPoint joinPoint) throws Throwable{
-        Boolean closed = false;
-        System.out.println("[Around] Contando tempo para pagamento");
 //        Object[] args = JoinPoint.getArgs();
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
+            Boolean closed = false;
             @Override
             public void run() {
-                System.out.println("[Around] Tempo de compra expirou - cancelando compra");
-                String url = "http://localhost:8080/CancelPayment?uuid=1234";
-                restTemplate.getForObject(url, String.class);
+                if(!closed){
+                    System.out.println("[Around] Tempo de compra expirou - cancelando compra");
+                    String url = "http://localhost:8080/CancelPayment?uuid=1234";
+                    restTemplate.getForObject(url, String.class);
+                    closed = true;
+                }
             }
-        }, 10000);
+        }, 1210000);
 
         joinPoint.proceed();
     }

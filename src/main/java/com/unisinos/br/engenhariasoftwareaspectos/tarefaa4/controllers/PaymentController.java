@@ -26,19 +26,19 @@ public class PaymentController {
         return new ResponseEntity<>(this.service.generatePayment(request), HttpStatus.OK);
     }
 
-    @GetMapping("/Payment")
-    public ResponseEntity payment(@RequestParam String uuid){
+    @PostMapping("/Payment")
+    public ResponseEntity payment(@RequestBody String uuid){
         return new ResponseEntity<>(this.service.payment(uuid), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/Dispatch", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/Dispatch", produces = MediaType.APPLICATION_JSON_VALUE)
     public void dispatch(){
         System.out.println("Despachado");
         //return new ResponseEntity<>(this.service.dispatch(uuid), HttpStatus.OK);
     }
 
-    @GetMapping("/CancelPayment")
-    public ResponseEntity cancelPayment(@RequestParam String uuid){
+    @PostMapping("/CancelPayment")
+    public ResponseEntity cancelPayment(@RequestBody String uuid){
         return new ResponseEntity<>(this.service.cancelPayment(uuid), HttpStatus.OK);
     }
 

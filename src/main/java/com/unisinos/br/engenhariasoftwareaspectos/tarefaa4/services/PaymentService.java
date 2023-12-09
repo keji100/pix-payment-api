@@ -18,10 +18,12 @@ public class PaymentService {
                 .isExpired(false)
                 .products(List.of(new Product(request.getProduct(), request.getAmount())))
                 .build();
+        System.out.println(response.toString());
         return response;
     }
 
     public String payment(String uuid) {
+        System.out.println("Pagamento Realizado!");
         return "Pagamento realizado com sucesso";
     }
 
