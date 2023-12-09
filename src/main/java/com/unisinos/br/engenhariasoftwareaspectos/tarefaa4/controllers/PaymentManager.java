@@ -2,6 +2,7 @@ package com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.controllers;
 
 import com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.entities.PaymentResponse;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ public class PaymentManager {
     }
 
     @PostMapping("/Dispatch")
-    public void dispatch(@RequestParam UUID id){
+    public void dispatch(@RequestBody UUID id){
 
     }
 
