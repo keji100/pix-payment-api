@@ -28,7 +28,6 @@ public class Aspects {
     public void aroundMethod(ProceedingJoinPoint joinPoint) throws Throwable{
         Boolean closed = false;
         System.out.println("[Around] Contando tempo para pagamento");
-
 //        Object[] args = JoinPoint.getArgs();
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
