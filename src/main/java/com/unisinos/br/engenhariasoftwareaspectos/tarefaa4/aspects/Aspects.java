@@ -1,5 +1,6 @@
 package com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.aspects;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,29 +16,28 @@ import java.util.TimerTask;
 public class Aspects {
     RestTemplate restTemplate = new RestTemplate();
 
-    @Before("execution(*com.unisinos.br.engenhariasoftwareaspectos.tarefaa4*)")
+    @Before("execution(*com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.controllers.PaymentController.GeneratePayment*)")
     public void beforeMethod(){
         String url = "http://localhost:8080/Dispatch";
-        String requestBody = "UUID=";
-        restTemplate.postForObject(url, requestBody, String.class);
+        restTemplate.getForObject(url, String.class);
     }
 
-    @Around("**")
+    @Around("*execution(*com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.controllers.PaymentController.generatePayment*)*")
     public void aroundMethod(){
+//        Object[] args = JoinPoint.getArgs();
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 String url = "http://localhost:8080/CancelPayment";
-                String requestBody = "UUID=";
-                restTemplate.postForObject(url, requestBody, String.class);
+                restTemplate.getForObject(url, String.class);
             }
         }, 120000); //2 min
     }
 
-    @After("**")
+    @After("*execution(*com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.controllers.PaymentController.payment*)*")
     public void afterMethod(){
-
+        //After Payment
+        System.out.println("Product paid and ready to go to client");
     }
-
 }
