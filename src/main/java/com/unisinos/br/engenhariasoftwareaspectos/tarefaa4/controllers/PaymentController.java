@@ -5,7 +5,9 @@ import com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.entities.PaymentRespo
 import com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,22 +22,23 @@ public class PaymentController {
     private PaymentService service;
 
     @PostMapping(value = "/GeneratePayment")
-    public ResponseEntity<PaymentResponse> generatePayment(@RequestBody PaymentRequest request){
+    public ResponseEntity generatePayment(@RequestBody PaymentRequest request){
         return new ResponseEntity<>(this.service.generatePayment(request), HttpStatus.OK);
     }
 
-    @PostMapping("/Payment")
-    public void payment(@RequestParam double amount){
-
+    @GetMapping("/Payment")
+    public ResponseEntity payment(@RequestParam String uuid){
+        return new ResponseEntity<>(this.service.payment(uuid), HttpStatus.OK);
     }
 
-    @PostMapping("/Dispatch")
-    public void dispatch(@RequestParam UUID id){
-
+    @GetMapping(value = "/Dispatch", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity dispatch(@RequestParam String uuid){
+        return new ResponseEntity<>(this.service.dispatch(uuid), HttpStatus.OK);
     }
 
-    @PostMapping("/CancelPayment")
-    public void cancelPayment(@RequestParam UUID id){
-
+    @GetMapping("/CancelPayment")
+    public ResponseEntity cancelPayment(@RequestParam String uuid){
+        return new ResponseEntity<>(this.service.cancelPayment(uuid), HttpStatus.OK);
     }
+
 }
