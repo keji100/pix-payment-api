@@ -40,7 +40,7 @@ public class Aspects {
                     closed = true;
                 }
             }
-        }, 1210000);
+        }, 120000);
 
         joinPoint.proceed();
     }
