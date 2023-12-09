@@ -9,4 +9,8 @@ public class PaymentResponse {
     private String pixCopiaECola;
     private Boolean isExpired;
 
+    public UUID generatePayment(){
+        return id;
+    }
+
 }
