@@ -22,7 +22,7 @@ public class PaymentController {
     private PaymentService service;
 
     @PostMapping(value = "/GeneratePayment")
-    public ResponseEntity generatePayment(@RequestBody PaymentRequest request){
+    public ResponseEntity<PaymentResponse> generatePayment(@RequestBody PaymentRequest request) {
         return new ResponseEntity<>(this.service.generatePayment(request), HttpStatus.OK);
     }
 
@@ -32,8 +32,9 @@ public class PaymentController {
     }
 
     @GetMapping(value = "/Dispatch", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity dispatch(@RequestParam String uuid){
-        return new ResponseEntity<>(this.service.dispatch(uuid), HttpStatus.OK);
+    public void dispatch(){
+        System.out.println("Despachado");
+        //return new ResponseEntity<>(this.service.dispatch(uuid), HttpStatus.OK);
     }
 
     @GetMapping("/CancelPayment")

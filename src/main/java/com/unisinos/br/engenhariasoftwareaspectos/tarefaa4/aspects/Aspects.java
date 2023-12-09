@@ -16,28 +16,29 @@ import java.util.TimerTask;
 public class Aspects {
     RestTemplate restTemplate = new RestTemplate();
 
-    @Before("execution(*com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.controllers.PaymentController.GeneratePayment*)")
+    @Before("execution(* com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.controllers.PaymentController.generatePayment(*))")
     public void beforeMethod(){
         String url = "http://localhost:8080/Dispatch";
         restTemplate.getForObject(url, String.class);
     }
 
-    @Around("*execution(*com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.controllers.PaymentController.generatePayment*)*")
-    public void aroundMethod(){
-//        Object[] args = JoinPoint.getArgs();
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                String url = "http://localhost:8080/CancelPayment";
-                restTemplate.getForObject(url, String.class);
-            }
-        }, 120000); //2 min
-    }
+//    @Around("execution(* com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.controllers.PaymentController.generatePayment(*))")
+//    public void aroundMethod(){
+////        Object[] args = JoinPoint.getArgs();
+//        Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                String url = "http://localhost:8080/CancelPayment?uuid=1234";
+//                restTemplate.getForObject(url, String.class);
+//            }
+//        }, 1000); //2 min
+//    }
 
-    @After("*execution(*com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.controllers.PaymentController.payment*)*")
+    @After("execution(* com.unisinos.br.engenhariasoftwareaspectos.tarefaa4.controllers.PaymentController.payment(*))")
     public void afterMethod(){
         //After Payment
         System.out.println("Product paid and ready to go to client");
     }
+
 }
